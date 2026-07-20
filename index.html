@@ -53,6 +53,16 @@
           <span class="stat-title">Completed Topics</span>
           <span class="stat-value"><span id="stat-completed">0</span> / <span id="stat-total">0</span></span>
         </div>
+
+        <div class="stat-card" style="margin-top: 1rem; background: rgba(76, 175, 80, 0.1); border-color: rgba(76, 175, 80, 0.3);">
+          <span class="stat-title" style="color: var(--success); display: flex; align-items: center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Completed Today
+          </span>
+          <span class="stat-value" id="stat-daily-streak" style="color: var(--success);">0</span>
+        </div>
       </div>
 
       <div class="agenda-container" id="agenda-container" style="margin-top: 1.5rem; padding: 1rem; background-color: var(--bg-card); border-radius: 8px; border: 1px solid var(--border-color);">
@@ -60,6 +70,18 @@
         <ul id="agenda-list" style="list-style: none; padding: 0; margin: 0; font-size: 0.8rem; color: var(--text-muted);">
           <li style="padding: 0.5rem 0;">No upcoming deadlines.</li>
         </ul>
+      </div>
+
+      <div style="margin-top: 1rem; padding: 0.75rem; background-color: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 8px; font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">
+        <div style="display: flex; align-items: center; margin-bottom: 0.25rem; color: #ff9800; font-weight: 600;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          Local Storage
+        </div>
+        Your progress is saved securely in your browser. It persists through refreshes, but <em>will not sync</em> across devices. Clearing your browser's site data will delete your progress.
       </div>
 
       <div class="sidebar-actions">
@@ -81,6 +103,13 @@
             <line x1="9" y1="15" x2="15" y2="15"></line>
           </svg>
           Mass Add List
+        </button>
+        <button class="btn btn-secondary" id="btn-mass-delete" style="margin-top: 0.5rem; color: var(--danger); border-color: var(--danger-light);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Mass Delete
         </button>
         <button class="btn btn-secondary" id="btn-expand-all" style="margin-top: 0.5rem;">Expand All</button>
         <button class="btn btn-secondary" id="btn-collapse-all" style="margin-top: 0.5rem;">Collapse All</button>
@@ -227,6 +256,32 @@
       <button type="button" class="btn btn-primary" id="btn-confirm-reset-yes"
         style="background-color: var(--danger); border-color: var(--danger);">Yes, Reset</button>
     </div>
+  </dialog>
+
+  <!-- Mass Delete Dialog -->
+  <dialog id="mass-delete-dialog" style="max-width: 600px; width: 90%;">
+    <h3 class="dialog-title" style="color: var(--danger);">Mass Delete Topics</h3>
+    <form id="mass-delete-form" method="dialog">
+      <div style="background: rgba(244, 67, 54, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.5; color: var(--text-primary);">
+        <strong>Warning:</strong> Deleting a topic will also permanently delete all of its subtopics.
+      </div>
+      
+      <div class="form-group" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+        <input type="text" id="mass-delete-search" class="form-input" placeholder="Search topics to delete..." style="flex: 1;">
+        <button type="button" class="btn btn-secondary" id="btn-mass-delete-toggle-all">Select All</button>
+      </div>
+
+      <div class="form-group">
+        <div id="mass-delete-list" style="max-height: 50vh; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 8px; padding: 0.5rem; background: var(--bg-main);">
+          <!-- JavaScript will populate checkboxes here -->
+        </div>
+      </div>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-secondary" id="btn-mass-delete-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="btn-mass-delete-confirm" style="background-color: var(--danger); border-color: var(--danger); color: white;">Delete Selected</button>
+      </div>
+    </form>
   </dialog>
 
   <!-- External Scripts -->
